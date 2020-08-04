@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://jeremy-boo.github.io/sitemap.xml

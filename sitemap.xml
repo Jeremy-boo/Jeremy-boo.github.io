@@ -1,0 +1,81 @@
+<?xml-stylesheet type="text/xsl" href="https://jeremy-boo.github.io/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/post/chinese-preview/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/tags/about/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/categories/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/tags/personal/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/categories/personal/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/post/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/tags/resume/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/categories/resume/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/tags/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/about/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/</loc>
+    <lastmod>2020-07-09T10:09:36+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>
