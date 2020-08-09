@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>K8S源码剖析之Client-Go - 二师兄。Jeremy-boo’s personal blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jeremy-boo" /><meta name="description" content="client-go源码理解" /><meta name="keywords" content="kubernetes" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.75.0-DEV with theme even" />
+
+
+<link rel="canonical" href="https://jeremy-boo.github.io/post/client-go/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="K8S源码剖析之Client-Go" />
+<meta property="og:description" content="client-go源码理解" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jeremy-boo.github.io/post/client-go/" />
+<meta property="article:published_time" content="2020-08-08T13:40:57+08:00" />
+<meta property="article:modified_time" content="2020-08-08T13:40:57+08:00" />
+<meta itemprop="name" content="K8S源码剖析之Client-Go">
+<meta itemprop="description" content="client-go源码理解">
+<meta itemprop="datePublished" content="2020-08-08T13:40:57+08:00" />
+<meta itemprop="dateModified" content="2020-08-08T13:40:57+08:00" />
+<meta itemprop="wordCount" content="1776">
+
+
+
+<meta itemprop="keywords" content="k8s源码,client-go," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8S源码剖析之Client-Go"/>
+<meta name="twitter:description" content="client-go源码理解"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">二师兄。Jeremy-boo’s personal blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/golang/">
+        <li class="mobile-menu-item">Go系列</li>
+      </a><a href="/kubernetes/">
+        <li class="mobile-menu-item">Kubernetes系列</li>
+      </a><a href="/prometheus/">
+        <li class="mobile-menu-item">Prometheus系列</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">二师兄。Jeremy-boo’s personal blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/golang/">Go系列</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/kubernetes/">Kubernetes系列</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/prometheus/">Prometheus系列</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">K8S源码剖析之Client-Go</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-08 13:40 </span>
+        <div class="post-category">
+            <a href="/categories/kubernetes/"> kubernetes </a>
+            </div>
+          <span class="more-meta"> 约 1776 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#client-go源码结构">Client-Go源码结构</a></li>
+    <li><a href="#11-client-go之五大客户端对象">1.1 Client-Go之五大客户端对象</a></li>
+    <li><a href="#12-client-go之informer机制">1.2 Client-Go之Informer机制</a></li>
+    <li><a href="#13-clinet-go之workqueue">1.3 Clinet-Go之WorkQueue</a></li>
+    <li><a href="#14-client-go之事件管理器">1.4 Client-Go之事件管理器</a></li>
+    <li><a href="#15-k8s-dashboard对client-go的一些封装">1.5 k8s-dashboard对client-go的一些封装</a></li>
+    <li><a href="#16-client-go的基础操作">1.6 Client-Go的基础操作</a></li>
+    <li><a href="#17-成长与思考">1.7 成长与思考</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="1-k8s之client-go源码剖析">1. k8s之client-go源码剖析</h1>
+<blockquote>
+<p>Face with a smile, not to complain.</p>
+</blockquote>
+<h2 id="client-go源码结构">Client-Go源码结构</h2>
+<p>源码结构:
+<img src="/images/client-go.png" alt="client-go"></p>
+<h2 id="11-client-go之五大客户端对象">1.1 Client-Go之五大客户端对象</h2>
+<blockquote>
+<p>client-go 是一个调用Kubernetes集群资源对象API的客户端，通过Client-go实现对Kubernetes集群中资源对象(Deploment,Service,Pod,Secret等)的CRUD操作。官方文档：https://github.com/kubernetes/client-go</p>
+</blockquote>
+<ul>
+<li>1.1.1 基础常识
+client-go 操作k8s集群其实是通过kubeconfig配置信息或者k8s-api-server的地址连接指定的kubernetes-api-server，连接k8s例子：</li>
+</ul>
+<p>1.获取依赖包</p>
+<pre><code>go get github.com/kubernetes/client-go
+</code></pre>
+<p>2.连接k8s(确保本地有kubeconfig配置文件)</p>
+<pre><code>package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;os&quot;
+    &quot;path/filepath&quot;
+    &quot;time&quot;
+
+    metav1 &quot;k8s.io/apimachinery/pkg/apis/meta/v1&quot;
+    &quot;k8s.io/client-go/kubernetes&quot;
+    &quot;k8s.io/client-go/tools/clientcmd&quot;
+)
+func main() {
+  var kubeconfig *string
+  if home := homeDir(); home != &quot;&quot; {
+        kubeconfig = flag.String(&quot;kubeconfig&quot;, filepath.Join(home, &quot;.kube&quot;, &quot;config&quot;), &quot;(optional) absolute path to the kubeconfig file&quot;)
+    } else {
+        kubeconfig = flag.String(&quot;kubeconfig&quot;, &quot;&quot;, &quot;absolute path to the kubeconfig file&quot;)
+    }
+  flag.Parse()
+  // uses the current context in kubeconfig
+  config, err := clientcmd.BuildConfigFromFlags(&quot;&quot;, *kubeconfig)
+  if err != nil {
+      panic(err.Error())
+  }
+  // creates the clientset
+  clientset, err := kubernetes.NewForConfig(config)
+  if err != nil {
+      panic(err.Error())
+  }
+  // get pods list
+  for {
+      pods, err := clientset.CoreV1().Pods(&quot;&quot;).List(metav1.ListOptions{})
+      if err != nil {
+          panic(err.Error())
+      }
+      fmt.Printf(&quot;There are %d pods in the cluster\n&quot;, len(pods.Items))
+      time.Sleep(10 * time.Second)
+  }
+}
+
+func homeDir() string {
+  if h := os.Getenv(&quot;HOME&quot;); h != &quot;&quot; {
+    return h
+  }
+  return os.Getenv(&quot;USERPROFILE&quot;) // windows
+}
+</code></pre>
+<ul>
+<li>
+<p>1.1.2 RESTClient
+RESTClient是最基础的客户端，它是基于对Http Request进行了封装，实现RESTful风格的API，其他Client都是基于RESTClient实现的,实际上就是一个http client
+通过参数(master的url或者kubeconfig路径)和BuildConfigFronFlags</p>
+<pre><code>// config      
+config,err := clientcmd.BuildConfigFormFlags(&quot;masterURL&quot;,*kubeconfig)
+// restClient
+restClient,err := rest.RESTClientFor(config)
+</code></pre>
+</li>
+</ul>
+<p>源码路径：k8s.io/client-go/rest/client.go</p>
+<pre><code>// RESTClient imposes common Kubernetes API conventions on a set of resource paths.
+// The baseURL is expected to point to an HTTP or HTTPS path that is the parent
+// of one or more resources.  The server should return a decodable API resource
+// object, or an api.Status object which contains information about the reason for
+// any failure.
+//
+// Most consumers should use client.New() to get a Kubernetes API client.
+type RESTClient struct {
+    // base is the root URL for all invocations of the client
+    base *url.URL
+    // versionedAPIPath is a path segment connecting the base URL to the resource root
+    versionedAPIPath string
+
+    // contentConfig is the information used to communicate with the server.
+    contentConfig ContentConfig
+
+    // serializers contain all serializers for underlying content type.
+    serializers Serializers
+
+    // creates BackoffManager that is passed to requests.
+    createBackoffMgr func() BackoffManager
+
+    // TODO extract this into a wrapper interface via the RESTClient interface in kubectl.
+    Throttle flowcontrol.RateLimiter
+
+    // Set specific behavior of the client.  If not set http.DefaultClient will be used.
+    Client *http.Client
+}
+</code></pre>
+<p>源码路径：k8s.io/client-go/rest/client.go
+RESTClient.Interface中方法如下：</p>
+<pre><code>  // Interface captures the set of operations for generically interacting with Kubernetes REST apis.
+  type Interface interface {
+      GetRateLimiter() flowcontrol.RateLimiter
+      Verb(verb string) *Request
+      Post() *Request
+      Put() *Request
+      Patch(pt types.PatchType) *Request
+      Get() *Request
+      Delete() *Request
+      APIVersion() schema.GroupVersion
+  }
+</code></pre>
+<ul>
+<li>
+<p>Discovery Client
+discovery client(发现客户端)，用于发现kube-apiserver支持的资源组、资源版本以及资源信息等(即Versions,Groups,Resources)</p>
+<pre><code>// config      
+config,err := clientcmd.BuildConfigFormFlags(&quot;masterURL&quot;,*kubeconfig)
+// discovery client
+discoveryClient, err := discovery.NewDiscoveryClientForConfig(config)
+</code></pre>
+</li>
+<li>
+<p>1.1.3 Dynamic Client
+dynamic client能够处理kubernetes集群中的所有资源对象，包括用户自定义资源</p>
+<pre><code>// config      
+config,err := clientcmd.BuildConfigFormFlags(&quot;masterURL&quot;,*kubeconfig)
+// dynamic client
+dynamicClient, err := dynamic.NewForConfig(config)
+</code></pre>
+</li>
+<li>
+<p>1.1.4 ClientSet Client
+ClientSet是在RESTClient基础上封装的对k8s资源(Resoures)和版本(Versions)操作管理的客户端，只能够处理k8s内置资源(Pod，Namespace等)</p>
+<pre><code>// config      
+config,err := clientcmd.BuildConfigFormFlags(&quot;masterURL&quot;,*kubeconfig)
+// clientSet client
+clientSet,err := kubernetes.NewForCofig(cofnig)
+// get pods
+pods, err := clientset.CoreV1().Pods(&quot;&quot;).List(metav1.ListOptions{})
+</code></pre>
+</li>
+</ul>
+<p>clientset的结构体</p>
+<pre><code>  // Clientset contains the clients for groups. Each group has exactly one
+  // version included in a Clientset.
+  type Clientset struct {
+      *discovery.DiscoveryClient
+      admissionregistrationV1alpha1 *admissionregistrationv1alpha1.AdmissionregistrationV1alpha1Client
+      appsV1beta1                   *appsv1beta1.AppsV1beta1Client
+      appsV1beta2                   *appsv1beta2.AppsV1beta2Client
+      authenticationV1              *authenticationv1.AuthenticationV1Client
+      authenticationV1beta1         *authenticationv1beta1.AuthenticationV1beta1Client
+      authorizationV1               *authorizationv1.AuthorizationV1Client
+      authorizationV1beta1          *authorizationv1beta1.AuthorizationV1beta1Client
+      autoscalingV1                 *autoscalingv1.AutoscalingV1Client
+      autoscalingV2beta1            *autoscalingv2beta1.AutoscalingV2beta1Client
+      batchV1                       *batchv1.BatchV1Client
+      batchV1beta1                  *batchv1beta1.BatchV1beta1Client
+      batchV2alpha1                 *batchv2alpha1.BatchV2alpha1Client
+      certificatesV1beta1           *certificatesv1beta1.CertificatesV1beta1Client
+      coreV1                        *corev1.CoreV1Client
+      extensionsV1beta1             *extensionsv1beta1.ExtensionsV1beta1Client
+      networkingV1                  *networkingv1.NetworkingV1Client
+      policyV1beta1                 *policyv1beta1.PolicyV1beta1Client
+      rbacV1                        *rbacv1.RbacV1Client
+      rbacV1beta1                   *rbacv1beta1.RbacV1beta1Client
+      rbacV1alpha1                  *rbacv1alpha1.RbacV1alpha1Client
+      schedulingV1alpha1            *schedulingv1alpha1.SchedulingV1alpha1Client
+      settingsV1alpha1              *settingsv1alpha1.SettingsV1alpha1Client
+      storageV1beta1                *storagev1beta1.StorageV1beta1Client
+      storageV1                     *storagev1.StorageV1Client
+  }
+</code></pre>
+<h2 id="12-client-go之informer机制">1.2 Client-Go之Informer机制</h2>
+<h2 id="13-clinet-go之workqueue">1.3 Clinet-Go之WorkQueue</h2>
+<h2 id="14-client-go之事件管理器">1.4 Client-Go之事件管理器</h2>
+<h2 id="15-k8s-dashboard对client-go的一些封装">1.5 k8s-dashboard对client-go的一些封装</h2>
+<h2 id="16-client-go的基础操作">1.6 Client-Go的基础操作</h2>
+<h2 id="17-成长与思考">1.7 成长与思考</h2>
+<h4 id="171-client-go总结">1.7.1 client-go总结</h4>
+<p>client-go主要功能就是对k8s集群的各种资源进行操作，针对每种资源都封装成了相应的client提供调用，使用client-go时首先需要获取kubernetes配置信息，即kubeconfig，大致目录：$HOME/.kube/config。</p>
+<blockquote>
+<p>调用过程如下：</p>
+</blockquote>
+<p>加载kubeconfig配置文件-&gt; resr.config -&gt; clientset -&gt; 具体的client(CoreV1Client)-&gt;具体的资源对象(pod)-&gt;RESTClient-&gt;http.Client→HTTP请求的发送及响应</p>
+<p>通过clientset中不同的client和client中不同资源对象的方法实现对kubernetes中资源对象的增删改查等操作，常用的client有CoreV1Client、AppsV1beta1Client、ExtensionsV1beta1Client等。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Jeremy-boo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-08-08 13:40
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.JPG">
+        <span>微信打赏</span>
+      </label>
+    
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/k8s%E6%BA%90%E7%A0%81/">k8s源码</a>
+          <a href="/tags/client-go/">client-go</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/chinese-preview/">
+            <span class="next-text nav-default">[自我介绍] 《First Paper》 </span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:boo-jeremy@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/Jeremy-boo" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/511974364" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://jeremy-boo.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Jeremy-boo</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+    <script type="text/javascript" src="/lib/timeago/timeago-3.0.2.min.js"></script>
+    <script type="text/javascript" src="/lib/timeago/timeago.locales-3.0.2.min.js"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
