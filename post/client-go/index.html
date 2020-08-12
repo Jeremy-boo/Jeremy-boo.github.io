@@ -243,10 +243,10 @@ func homeDir() string {
 <p>1.1.2 RESTClient
 RESTClient是最基础的客户端，它是基于对Http Request进行了封装，实现RESTful风格的API，其他Client都是基于RESTClient实现的,实际上就是一个http client
 通过参数(master的url或者kubeconfig路径)和BuildConfigFronFlags</p>
-<pre><code>// config      
-config,err := clientcmd.BuildConfigFormFlags(&quot;masterURL&quot;,*kubeconfig)
-// restClient
-restClient,err := rest.RESTClientFor(config)
+<pre><code> // config      
+  config,err := clientcmd.BuildConfigFormFlags(&quot;masterURL&quot;,*kubeconfig)
+  // restClient
+  restClient,err := rest.RESTClientFor(config)
 </code></pre>
 </li>
 </ul>

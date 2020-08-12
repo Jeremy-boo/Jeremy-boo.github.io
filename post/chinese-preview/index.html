@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jeremy-boo" /><meta name="description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤" /><meta name="keywords" content="Go, Github, Kubernetes, Docker, Back End" />
+<meta name="author" content="Jeremy-boo" /><meta name="description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤 生成博客站点 // 生成站点 $ hugo new site path // 创建文章 $ hugo new first.md // 指定目录创建文章 $ hugo new post/about.md 安装皮肤 皮" /><meta name="keywords" content="Go, Github, Kubernetes, Docker, Back End" />
 
 
 
@@ -40,23 +40,23 @@
 
 
 <meta property="og:title" content="[自我介绍] 《First Paper》 " />
-<meta property="og:description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤" />
+<meta property="og:description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤 生成博客站点 // 生成站点 $ hugo new site path // 创建文章 $ hugo new first.md // 指定目录创建文章 $ hugo new post/about.md 安装皮肤 皮" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jeremy-boo.github.io/post/chinese-preview/" />
 <meta property="article:published_time" content="2020-07-09T10:09:36+08:00" />
 <meta property="article:modified_time" content="2020-07-09T10:09:36+08:00" />
 <meta itemprop="name" content="[自我介绍] 《First Paper》 ">
-<meta itemprop="description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤">
+<meta itemprop="description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤 生成博客站点 // 生成站点 $ hugo new site path // 创建文章 $ hugo new first.md // 指定目录创建文章 $ hugo new post/about.md 安装皮肤 皮">
 <meta itemprop="datePublished" content="2020-07-09T10:09:36+08:00" />
 <meta itemprop="dateModified" content="2020-07-09T10:09:36+08:00" />
-<meta itemprop="wordCount" content="27">
+<meta itemprop="wordCount" content="172">
 
 
 
 <meta itemprop="keywords" content="personal," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[自我介绍] 《First Paper》 "/>
-<meta name="twitter:description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤"/>
+<meta name="twitter:description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤 生成博客站点 // 生成站点 $ hugo new site path // 创建文章 $ hugo new first.md // 指定目录创建文章 $ hugo new post/about.md 安装皮肤 皮"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -142,7 +142,7 @@
         <div class="post-category">
             <a href="/categories/personal/"> personal </a>
             </div>
-          <span class="more-meta"> 约 27 字 </span>
+          <span class="more-meta"> 约 172 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -151,7 +151,17 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#生成博客站点">生成博客站点</a></li>
+        <li><a href="#安装皮肤">安装皮肤</a></li>
+        <li><a href="#部署">部署</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
@@ -162,7 +172,51 @@
 <pre><code>hugo, github and even主题
 </code></pre>
 <h1 id="搭建步骤">搭建步骤</h1>
-
+<h3 id="生成博客站点">生成博客站点</h3>
+<pre><code>// 生成站点
+$ hugo new site path
+// 创建文章
+$ hugo new first.md
+// 指定目录创建文章
+$ hugo new post/about.md
+</code></pre>
+<h3 id="安装皮肤">安装皮肤</h3>
+<blockquote>
+<p>皮肤路径在site 的themes路径下，可以在网站下载相关主题，放在themes目录下，然后再config.toml中指定主题</p>
+</blockquote>
+<h3 id="部署">部署</h3>
+<ol>
+<li>本地运行</li>
+</ol>
+<blockquote>
+<p>hugo server</p>
+</blockquote>
+<ol start="2">
+<li>发布</li>
+</ol>
+<blockquote>
+<p>hugo -t site</p>
+</blockquote>
+<ol start="3">
+<li>hugo+github pages</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git init
+git remote add origin https://github.com/Jeremy-boo/Jeremy-boo.github.io.git
+git add .
+git commit -m &#34;first commit&#34;
+git push -u origin master
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">

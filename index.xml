@@ -27,7 +27,7 @@
       <pubDate>Thu, 09 Jul 2020 10:09:36 +0800</pubDate>
       
       <guid>https://jeremy-boo.github.io/post/chinese-preview/</guid>
-      <description>个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤</description>
+      <description>个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤 生成博客站点 // 生成站点 $ hugo new site path // 创建文章 $ hugo new first.md // 指定目录创建文章 $ hugo new post/about.md 安装皮肤 皮</description>
     </item>
     
     <item>
