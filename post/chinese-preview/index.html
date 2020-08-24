@@ -49,7 +49,7 @@
 <meta itemprop="description" content="个人博客今天成立啦。 涉及技术 hugo, github and even主题 搭建步骤 生成博客站点 // 生成站点 $ hugo new site path // 创建文章 $ hugo new first.md // 指定目录创建文章 $ hugo new post/about.md 安装皮肤 皮">
 <meta itemprop="datePublished" content="2020-07-09T10:09:36+08:00" />
 <meta itemprop="dateModified" content="2020-07-09T10:09:36+08:00" />
-<meta itemprop="wordCount" content="167">
+<meta itemprop="wordCount" content="196">
 
 
 
@@ -142,7 +142,7 @@
         <div class="post-category">
             <a href="/categories/personal/"> personal </a>
             </div>
-          <span class="more-meta"> 约 167 字 </span>
+          <span class="more-meta"> 约 196 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -158,6 +158,7 @@
         <li><a href="#生成博客站点">生成博客站点</a></li>
         <li><a href="#安装皮肤">安装皮肤</a></li>
         <li><a href="#部署">部署</a></li>
+        <li><a href="#其他解决wsl2中sudoders出现问题">其他(解决wsl2中sudoders出现问题)</a></li>
       </ul>
     </li>
   </ul>
@@ -208,6 +209,10 @@ $ hugo new post/about.md
 </code></pre>
 </li>
 </ol>
+<h3 id="其他解决wsl2中sudoders出现问题">其他(解决wsl2中sudoders出现问题)</h3>
+<pre><code>    wsl -u root
+    chown root:root /etc/sudoers
+</code></pre>
 
     </div>
 
