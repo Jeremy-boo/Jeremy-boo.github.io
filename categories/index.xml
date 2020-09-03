@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>Jeremy-boo</copyright>
-    <lastBuildDate>Thu, 13 Aug 2020 20:24:14 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2020 11:02:21 +0800</lastBuildDate>
     
 	<atom:link href="https://jeremy-boo.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>golang</title>
       <link>https://jeremy-boo.github.io/categories/golang/</link>
-      <pubDate>Thu, 13 Aug 2020 20:24:14 +0800</pubDate>
+      <pubDate>Thu, 27 Aug 2020 11:02:21 +0800</pubDate>
       
       <guid>https://jeremy-boo.github.io/categories/golang/</guid>
       <description></description>

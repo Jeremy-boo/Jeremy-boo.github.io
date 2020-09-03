@@ -3,7 +3,35 @@
   
   <url>
     <loc>https://jeremy-boo.github.io/categories/</loc>
-    <lastmod>2020-08-13T20:24:14+08:00</lastmod>
+    <lastmod>2020-08-27T11:02:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/categories/golang/</loc>
+    <lastmod>2020-08-27T11:02:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/golang/</loc>
+    <lastmod>2020-08-27T11:02:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/golang/gpm/</loc>
+    <lastmod>2020-08-27T11:02:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jeremy-boo.github.io/</loc>
+    <lastmod>2020-08-27T11:02:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -16,28 +44,7 @@
   </url>
   
   <url>
-    <loc>https://jeremy-boo.github.io/categories/golang/</loc>
-    <lastmod>2020-08-13T20:24:14+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jeremy-boo.github.io/golang/</loc>
-    <lastmod>2020-08-13T20:24:14+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://jeremy-boo.github.io/tags/</loc>
-    <lastmod>2020-08-13T20:24:14+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jeremy-boo.github.io/</loc>
     <lastmod>2020-08-13T20:24:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
